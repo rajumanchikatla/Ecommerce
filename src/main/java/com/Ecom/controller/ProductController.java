@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecom.Entity.Product;
 import com.Ecom.Exceptions.ProductNotFoundException;
-import com.Ecom.Model.Product;
 import com.Ecom.Service.ProductServiceImpl;
 
 @RestController
