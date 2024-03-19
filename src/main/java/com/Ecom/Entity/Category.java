@@ -23,7 +23,7 @@ public class Category{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
 	
-	private long Id;
+	private long categoryId;
 	
 	private String categoryName;
 
