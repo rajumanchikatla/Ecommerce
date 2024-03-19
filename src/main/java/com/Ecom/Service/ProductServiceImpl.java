@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Ecom.Dao.ProductDao;
-import com.Ecom.Model.Product;
+import com.Ecom.Entity.Product;
 
 @Service
 public class ProductServiceImpl {
