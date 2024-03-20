@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecom.Entity.Product;
@@ -48,6 +50,14 @@ public class ProductController {
 		}
 		
 	}
+	//pagination
+	
+	@GetMapping("/products")
+	public Page<Product>getEntities(@RequestParam(defaultValue = "0")int page,
+									@RequestParam(defaultValue = "10")int size){
+		return productServiceImpl.getEntities(page,size);
+	}
+	
 	
 	@PostMapping("/product")
 	public ResponseEntity<String>createProduct(@RequestBody Product product){
@@ -59,17 +69,17 @@ public class ProductController {
         }
 	}
 	
-//	@PostMapping("/product")
+//	@PostMapping("/products")
 //	public ResponseEntity<?> createproducts(@RequestBody List<Product> products){
 //		List<Product> createProducts = productServiceImpl.saveallproducts(products);
 //		if(createProducts!=null && !createProducts.isEmpty()){
 //			 return ResponseEntity.status(HttpStatus.CREATED).body(createProducts);
 //			  
 //       } else {
-//           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create products plz check....");
+//           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create products plz check....");
 //       }
 //	}
-//	
+	
 	@PutMapping("/product")
 	public ResponseEntity<?>updateproduct(@RequestBody Product updateproduct){
 		try {
