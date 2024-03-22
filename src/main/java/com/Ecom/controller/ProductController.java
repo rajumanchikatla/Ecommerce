@@ -40,15 +40,19 @@ public class ProductController {
 	}
 
 	@GetMapping("/product/{id}")
-	public ResponseEntity<?> getproductByid(@PathVariable long id){
-		Optional<Product> productbyid = productServiceImpl.getbyid(id);
-		if(productbyid.isPresent()){
-			Product product = productbyid.get();
-			return ResponseEntity.ok(product);
-		}else{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not availiable");
+	public ResponseEntity<?> getproductByid(@PathVariable String id){
+		try {
+	        long productId = Long.parseLong(id);
+			Optional<Product> productbyid = productServiceImpl.getbyid(productId);
+			if(productbyid.isPresent()){
+				Product product = productbyid.get();
+				return ResponseEntity.ok(product);
+			}else{
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not availiable");
+			}
+		} catch(NumberFormatException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please enter valid number");
 		}
-		
 	}
 	//pagination
 	
@@ -60,7 +64,7 @@ public class ProductController {
 	
 	
 	@PostMapping("/product")
-	public ResponseEntity<String>createProduct(@RequestBody Product product){
+	public ResponseEntity<String>createProduct( @RequestBody Product product){
 		Product createProduct = productServiceImpl.saveproducts(product);
 		if(createProduct!=null){
 			 return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
@@ -81,7 +85,7 @@ public class ProductController {
 //	}
 	
 	@PutMapping("/product")
-	public ResponseEntity<?>updateproduct(@RequestBody Product updateproduct){
+	public ResponseEntity<?>updateproduct(@RequestBody Product updateproduct)throws RuntimeException{
 		try {
             Product result = productServiceImpl.updateProduct(updateproduct);
             return ResponseEntity.ok(result);
@@ -91,7 +95,7 @@ public class ProductController {
     	}
 	
 	 @PatchMapping("/product/{id}")
-    public ResponseEntity<?> partialUpdateProduct(@PathVariable Long id, @RequestBody Product partialUpdateProduct) {
+    public ResponseEntity<?> partialUpdateProduct(@PathVariable Long id, @RequestBody Product partialUpdateProduct) throws RuntimeException{
 		 
         try {
         	partialUpdateProduct.setProductId(id);
