@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,12 +28,10 @@ public class Product{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long productId;
 	
-	
+	@NotNull
 	private String productName;
 	
-	
 	private String productDescription;
-	
 	
 //	@Column(name="category")
 	@ManyToOne
