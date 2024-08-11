@@ -1,4 +1,4 @@
-package com.Ecom.controller;
+ package com.Ecom.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +28,16 @@ public class ProductController {
 	
 	@Autowired
 	private ProductServiceImpl productServiceImpl;
+	
+	
+	@GetMapping("/test")
+	
+	public String testingCode(){
+		return "Test success";
+		
+		//changes not updated
+	}
+	
 	
 	@GetMapping("/product")
 	public ResponseEntity<List<Product>>getproducts(){
